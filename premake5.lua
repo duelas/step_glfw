@@ -4,8 +4,8 @@ project "GLFW"
 	staticruntime "off"
 	cppdialect "C++20"
 
-	targetdir ("bin/%{cfg.system}-%{cfg.architecture}/%{prj.name}")
-	objdir ("bin-int/%{cfg.system}-%{cfg.architecture}/%{prj.name}")
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
 	files
 	{
@@ -32,10 +32,7 @@ project "GLFW"
 	}
 
 
-	postbuildcommands
-	{
-		"{COPYDIR} \"%{cfg.targetdir}/%{prj.name}.lib\" \"%{wks.location}/projectmodule/Lib\""
-	}
+
 	
 	filter "system:macosx"
 
@@ -106,24 +103,19 @@ project "GLFW"
 		{
 			"Dwmapi.lib"
 		}
-		
-	filter "configurations:Editor_Debug"
-		runtime "Debug"
-		symbols "On"		
-	
-	filter "configurations:Editor_Release"
-		runtime "Debug"
-		optimize "on"
-		
+
 	filter "configurations:Debug"
 		runtime "Debug"
 		symbols "on"
-
+		postbuildcommands	{	"{COPYDIR} \"%{cfg.targetdir}/%{prj.name}.lib\" \"%{wks.location}/projectmodule/Lib\""	}
+		
 	filter "configurations:Release"
 		runtime "Release"
 		optimize "on"
-
+		postbuildcommands	{	"{COPYDIR} \"%{cfg.targetdir}/%{prj.name}.lib\" \"%{wks.location}/projectmodule/Lib\""	}
+		
     filter "configurations:Dist"
 		runtime "Release"
 		optimize "on"
-        symbols "off"
+        symbols "off"		
+		postbuildcommands	{	"{COPYDIR} \"%{cfg.targetdir}/%{prj.name}.lib\" \"%{wks.location}/projectmodule/Lib\""	}
