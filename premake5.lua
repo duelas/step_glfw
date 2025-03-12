@@ -103,7 +103,17 @@ project "GLFW"
 		{
 			"Dwmapi.lib"
 		}
-
+		
+		
+	filter "configurations:Editor_Debug"
+		runtime "Debug"
+		symbols "On"		
+		
+	filter "configurations:Editor_Release"
+		runtime "Release"
+		optimize "On"
+		symbols "off"
+		
 	filter "configurations:Debug"
 		runtime "Debug"
 		symbols "on"
